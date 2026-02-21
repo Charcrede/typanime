@@ -1,113 +1,94 @@
 'use client'
-import { useState, FormEvent, useEffect } from 'react';
-import Nav from '../Components/nav';
-import { SYNOPSIS } from '@/app/mockOtaku_second';
-import Image from 'next/image';
-import image from '../../../public/assets/citations/img/12.jpg'
-import Link from 'next/link';
-import {Synopsis} from '@/app/otaku'
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ContentCard from '../../Components/ContentCard';
+import { Content } from '../types/content';
+import ShowCardContent from '@/Components/ShowCardContent';
+
 const Synops = () => {
+    const apiUrl = process.env.NEXT_PUBLIC_API
 
-   // ########################### CONSTANTES #################################### //
-   const apiUrl = process.env.NEXT_PUBLIC_API
-   // ########################### VARIABLES #################################### //
-       const [synopsis, setSynopsis] = useState<Synopsis[]>([])
-       const [count, setCount] = useState(0)
-       const [active, setActive] = useState(1)
-       const [next, setNext] = useState('')
-       const [prev, setPrev] = useState('')
-       const [numbers, setNumbers] = useState<number[]>([])
-    // ########################### MOUNTED #################################### //
+    const [synopsis, setSynopsis] = useState<Content[]>([])
+    const [active, setActive] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [content, setContent] = useState<Content | null>(null)
+    const [loading, setLoading] = useState(true)
 
-    useEffect(()=>{
-        axios.get(`${apiUrl}/api/synopsis`).then((resp)=>{
-           setSynopsis(resp.data.results)
-           setCount(resp.data.count)
-           setPrev(resp.data.prev)
-           setNext(resp.data.next)
-        
-           let n = resp.data.count / 6
-           let tab = []
-           for (let i = 0; i < n; i++) {
-                tab.push(i+1)
-           }
-           setNumbers(tab)
+    const fetchPage = (page: number) => {
+        setLoading(true)
+        axios.get(`${apiUrl}contents/?categoryId=1&page=${page}`).then((resp) => {
+            setSynopsis(resp.data.data)
+            setTotalPages(resp.data.meta.totalPages)
+            setActive(page)
+            setLoading(false)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
         })
-    },[])
-
-    // ########################### WATCHER #################################### //
-
-
-    // ########################### METHODS #################################### //
-
-    const move = (link : string) =>{
-        axios.get(`${link}`).then((resp)=>{
-            setSynopsis(resp.data.results)
-            setCount(resp.data.count)
-            setPrev(resp.data.previous)
-            setNext(resp.data.next)
-            setActive(parseInt(link.substring(link.length-1, link.length)))
-            let n = resp.data.count / 6
-            let tab = []
-            for (let i = 0; i < n; i++) {
-                 tab.push(i+1)
-            }
-            setNumbers(tab)
-         })
     }
 
-    const moveTo = (num : number) =>{
-        axios.get(`${apiUrl}/api/synopsis/?page=${num}`).then((resp)=>{
-            setSynopsis(resp.data.results)
-            setCount(resp.data.count)
-            setPrev(resp.data.previous)
-            setNext(resp.data.next)
-            setActive(num)
-            let n = resp.data.count / 6
-            let tab = []
-            for (let i = 0; i < n; i++) {
-                 tab.push(i+1)
-            }
-            setNumbers(tab)
-         })
-    }
-
-
-    // ########################### HTML #################################### //
-
+    useEffect(() => { fetchPage(1) }, [])
 
     return (
         <>
-            <Nav></Nav>
-            <div className=''>
-                <h1 className='align-center text-primary  font-Bebas font-bold xs:text-[1.5rem] lg:text-[2.5rem] leading-10 align-middle flex justify-center'><span className='bg-white'>TESTEZ VOTRE VITESSE AVEC CES SYNOPSIS</span></h1>
-                <div className='grid xs:grid-cols-1 lg:grid-cols-3 w-3/4 gap-4 mx-auto mt-8 object-fit'>
-                    {synopsis.map((el, i) => (
-                        <div key={i}>
-                            <div className='border-2 border-white h-[350px] object-cover overflow-hidden rounded-t-2xl relative group'>
-                                <img alt='anime' src={`/${el.url}`} className='object-cover h-full w-full'></img>
-                                <div className='font-Bebas bg-black bg-opacity-75 text-white absolute top-0 left-0 bottom-0 right-0 flex justify-center items-center gap-4 flex-col group-hover:opacity-100 opacity-0 duration-300'>
-                                    <span>{el.anime}</span>
-                                    <span>{el.texte.length} caractères</span>
-                                </div>
-                            </div>
-                            <Link href={`synopsis/${el.id}`} className='border-2 border-white mt-2 w-full text-center text-white bg-white bg-opacity-25 rounded-b-2xl block py-1 hover:bg-primary hover:bg-opacity-25 duration-300'>Synopsis #{el.id}</Link>
+            <div className="min-h-screen">
+                <div className="max-w-6xl mx-auto px-6 pt-24 pb-20">
+
+                    {/* Header */}
+                    <div className="mb-16 flex flex-col items-center text-center gap-3">
+                        <span className="synops-subtitle">Typanime · Collection</span>
+                        <h1 className="synops-title">Synopsis</h1>
+                        <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.15)' }} />
+                    </div>
+
+                    {/* Grille */}
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center py-32 gap-3">
+                            <div className="w-6 h-6 border-2 border-white/15 border-t-white/60 rounded-full animate-spin" />
+                            <p className="synops-subtitle">Chargement</p>
                         </div>
-                    ))}
-                </div>
-                <div className='flex justify-center items-center mt-8 gap-4 font-bold'>
-                    <button onClick={()=>{move(prev)}} className='bg-white text-primary rounded-lg px-4 py-2 border border-white hover:bg-primary hover:text-white duration-300'>Précédent</button>
-                    {numbers.map((el,i)=>(
-                        <button key={i} onClick={()=>{moveTo(el)}} className={`${active == el ? 'bg-white text-primary' : 'bg-primary text-white'} border border-white w-10 h-10 rounded-lg`}>{el}</button>
-                    ))}
-                    <button onClick={()=>{move(next)}} className='bg-white text-primary rounded-lg px-4 py-2 border border-white hover:bg-primary hover:text-white duration-300'>Suivant</button>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 grid-fade">
+                            {synopsis.map((el, i) => (
+                                <div key={i} className="flex justify-center">
+                                    <ContentCard
+                                        content={el}
+                                        showDetails={(c) => setContent(c)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Pagination */}
+                    {!loading && totalPages > 1 && (
+                        <div className="flex items-center justify-center gap-5 mt-16">
+                            <button
+                                className="page-btn page-btn-outline"
+                                onClick={() => fetchPage(active - 1)}
+                                disabled={active <= 1}
+                            >
+                                ← Précédent
+                            </button>
+                            <span className="page-indicator">{active} / {totalPages}</span>
+                            <button
+                                className="page-btn page-btn-outline"
+                                onClick={() => fetchPage(active + 1)}
+                                disabled={active >= totalPages}
+                            >
+                                Suivant →
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
+
+            {content && (
+                <ShowCardContent
+                    content={content}
+                    hideDetails={() => setContent(null)}
+                />
+            )}
         </>
     )
-
-
-};
+}
 
 export default Synops;
