@@ -25,7 +25,8 @@ function AuthCallbackContent() {
       // .catch(() => {
         // router.replace('/login');
       // });
-       router.replace('/dashboard');
+      //  router.replace('/dashboard');
+      console.log(token)
   }, [token, router]);
 
   return (
