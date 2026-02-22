@@ -20,7 +20,7 @@ function AuthCallbackContent() {
       body: JSON.stringify({ token }),
     })
       .then(() => {
-        router.replace('/dashboard');
+        // router.replace('/dashboard');
       })
       .catch(() => {
         // router.replace('/login');
