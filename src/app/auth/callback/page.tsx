@@ -11,8 +11,20 @@ function AuthCallbackContent() {
   useEffect(() => {
     if (!token) return;
 
-    localStorage.setItem('auth_token', token);
-    router.replace('/dashboard');
+    fetch(`${process.env.NEXT_PUBLIC_API}/auth/set-cookie`, {
+      method: 'POST',
+      credentials: 'include', // 🔥 OBLIGATOIRE
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    })
+      .then(() => {
+        router.replace('/dashboard');
+      })
+      .catch(() => {
+        // router.replace('/login');
+      });
   }, [token, router]);
 
   return (
@@ -23,9 +35,9 @@ function AuthCallbackContent() {
 }
 
 export default function AuthCallback() {
-    return (
-        <Suspense fallback={<div className="min-h-screen" />}>
-            <AuthCallbackContent />
-        </Suspense>
-    )
+  return (
+    <Suspense fallback={<div className="min-h-screen" />}>
+      <AuthCallbackContent />
+    </Suspense>
+  );
 }
