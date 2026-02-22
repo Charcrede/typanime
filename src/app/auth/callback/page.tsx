@@ -11,7 +11,7 @@ function AuthCallbackContent() {
   useEffect(() => {
     if (!token) return;
 
-    fetch(`${process.env.NEXT_PUBLIC_API}/auth/set-cookie`, {
+    fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
       method: 'POST',
       credentials: 'include', // 🔥 OBLIGATOIRE
       headers: {
