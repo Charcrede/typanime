@@ -11,20 +11,21 @@ function AuthCallbackContent() {
   useEffect(() => {
     if (!token) return;
 
-    fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
-      method: 'POST',
-      credentials: 'include', // 🔥 OBLIGATOIRE
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token }),
-    })
-      .then(() => {
+    // fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
+    //   method: 'POST',
+    //   credentials: 'include', // 🔥 OBLIGATOIRE
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ token }),
+    // })
+      // .then(() => {
         // router.replace('/dashboard');
-      })
-      .catch(() => {
+      // })
+      // .catch(() => {
         // router.replace('/login');
-      });
+      // });
+       router.replace('/dashboard');
   }, [token, router]);
 
   return (
