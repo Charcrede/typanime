@@ -7,11 +7,11 @@ const API_URL = process.env.NEXT_PUBLIC_API ?? "http://localhost:3000";
 
 export default function LoginPage() {
   const loginWithGoogle = () => {
-    window.location.href = `${API_URL}/auth/google`;
+    window.location.href = `${API_URL}auth/google`;
   };
 
   const loginWithGithub = () => {
-    window.location.href = `${API_URL}/auth/github`;
+    window.location.href = `${API_URL}auth/github`;
   };
 
   return (
