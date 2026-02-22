@@ -5,11 +5,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 function AuthCallbackContent() {
   const router = useRouter();
-  const params = useSearchParams();
-  const token = params.get('token');
+  // const params = useSearchParams();
+  // const token = params.get('token');
 
   useEffect(() => {
-    if (!token) return;
+    // if (!token) return;
 
     // fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
     //   method: 'POST',
@@ -26,8 +26,8 @@ function AuthCallbackContent() {
         // router.replace('/login');
       // });
       //  router.replace('/dashboard');
-      console.log(token)
-  }, [token, router]);
+      console.log()
+  }, [ router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
