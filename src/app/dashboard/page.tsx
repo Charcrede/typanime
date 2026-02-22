@@ -29,7 +29,8 @@ export default function DashboardPage() {
   const getUser = async () => {
     const userData = await fetch('/api/me').then(r => r.json());
     if (userData.error) {
-      window.location.href = '/auth/login';
+      // window.location.href = '/auth/login';
+      console.log(userData.error)
     } else {
       setUser(userData);
       setProfile(userData);
