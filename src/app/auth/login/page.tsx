@@ -3,7 +3,7 @@ import { FcGoogle } from 'react-icons/fc';
 import Image from "next/image";
 import { FaGithub } from 'react-icons/fa';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API ?? "http://localhost:3000";
 
 export default function LoginPage() {
   const loginWithGoogle = () => {
