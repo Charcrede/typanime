@@ -5,29 +5,27 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 function AuthCallbackContent() {
   const router = useRouter();
-  // const params = useSearchParams();
-  // const token = params.get('token');
+  const params = useSearchParams();
+  const token = params.get('token');
 
   useEffect(() => {
-    // if (!token) return;
+    if (!token) return;
 
-    // fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
-    //   method: 'POST',
-    //   credentials: 'include', // 🔥 OBLIGATOIRE
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ token }),
-    // })
-      // .then(() => {
-        // router.replace('/dashboard');
-      // })
-      // .catch(() => {
-        // router.replace('/login');
-      // });
-      //  router.replace('/dashboard');
-      console.log()
-  }, [ router]);
+    fetch(`${process.env.NEXT_PUBLIC_API}auth/set-cookie`, {
+      method: 'POST',
+      credentials: 'include', // 🔥 OBLIGATOIRE
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    })
+      .then(() => {
+        router.replace('/dashboard');
+      })
+      .catch(() => {
+        router.replace('/auth/login');
+      });
+  }, [token, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

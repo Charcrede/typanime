@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   const categoryId = searchParams.get('categoryId');
 
   const tokenRaw = cookies().get('auth_token')?.value;
-  const token = tokenRaw ? JSON.parse(tokenRaw.slice(2)).access_token : null;
+  const token = tokenRaw ? JSON.parse(tokenRaw).access_token : null;
 
   const res = await fetch(
     `${API}contents?categoryId=${categoryId}&limit=100`,

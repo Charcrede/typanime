@@ -7,7 +7,7 @@ export async function GET() {
   console.log(token)
   if (!token) return Response.json({ error: 'Not authenticated' }, { status: 401 });
   const user = await fetch(`${process.env.NEXT_PUBLIC_API}users/me`, {
-    headers: { Authorization: `Bearer ${JSON.parse(token?.slice(2)).access_token}` }
+    headers: { Authorization: `Bearer ${JSON.parse(token).access_token}` }
   }).then(r => r.json());
 
   return Response.json(user);

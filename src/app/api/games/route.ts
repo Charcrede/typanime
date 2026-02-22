@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
     const tokenRaw = cookies().get('auth_token')?.value;
-    const token = tokenRaw ? JSON.parse(tokenRaw.slice(2)).access_token : null;
+    const token = tokenRaw ? JSON.parse(tokenRaw).access_token : null;
     if (!token) {
         return Response.json({ error: 'Not authenticated' }, { status: 401 });
     }
