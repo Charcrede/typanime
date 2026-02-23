@@ -485,7 +485,7 @@ export default function TypingGame(props: TypingGameProps) {
                                                         {medals[idx] ?? <span className='text-white/30 font-mono text-xs'>{idx + 1}</span>}
                                                     </span>
                                                     <span className={`text-sm font-medium ${isMe ? 'text-white' : 'text-white/60'}`}>
-                                                        {isMe ? 'Toi' : `Joueur #${p.user_id}`}
+                                                        {isMe ? 'Toi' : `${p.user.username}`}
                                                     </span>
                                                 </div>
                                                 <div className='flex items-center gap-6 font-mono text-sm'>
