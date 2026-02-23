@@ -138,6 +138,7 @@ function ChallengesContent() {
                                 challenge={c}
                                 currentUserId={user?.id as number | undefined}
                                 onJoin={() => handleJoin(c)}
+                                showAlert={()=>{setShowGuestAlert(true)}}
                             />
                         ))}
                     </div>

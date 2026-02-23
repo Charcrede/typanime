@@ -1,15 +1,17 @@
+import { useUser } from "@/app/context/UserContext"
 import { Challenge } from "@/app/types/challenge"
 import { Trophy, Link2, Check } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 
-function ChallengeCard({ challenge: c, currentUserId, onJoin }: {
+function ChallengeCard({ challenge: c, currentUserId, onJoin, showAlert }: {
     challenge: Challenge
     currentUserId?: number
     onJoin: () => void
+    showAlert?: () => void
 }) {
     const [copied, setCopied] = useState(false)
-
+    const { user, logout } = useUser();
     const timeLeft = (expires_at: string) => {
         const diff = new Date(expires_at).getTime() - Date.now()
         if (diff <= 0) return 'Expiré'
@@ -29,11 +31,11 @@ function ChallengeCard({ challenge: c, currentUserId, onJoin }: {
     }
 
     const isExpired = (expires_at: string) => new Date(expires_at).getTime() < Date.now()
-    const expired  = isExpired(c.expires_at)
-    const joined   = c.participants.some(p => p.user_id === currentUserId)
-    const full     = c.participants.length >= c.max_players
-    const fillPct  = Math.min(100, (c.participants.length / c.max_players) * 100)
-    const best     = c.participants.length > 0 ? Math.max(...c.participants.map(p => p.wpm)) : null
+    const expired = isExpired(c.expires_at)
+    const joined = c.participants.some(p => p.user_id === currentUserId)
+    const full = c.participants.length >= c.max_players
+    const fillPct = Math.min(100, (c.participants.length / c.max_players) * 100)
+    const best = c.participants.length > 0 ? Math.max(...c.participants.map(p => p.wpm)) : null
 
     return (
         <div className={`card p-5 ${expired ? 'opacity-50' : ''}`}>
@@ -81,14 +83,23 @@ function ChallengeCard({ challenge: c, currentUserId, onJoin }: {
                         )}
                     </div>
                 </div>
-
-                <Link
-                    href={"/challenges/" + c.id}
-                    // disabled={expired || full}
-                    className={`shrink-0 self-center btn-primary`}
-                >
-                    {full ? 'Complet' : expired ? 'Expiré' : joined ? 'Rejouer' : 'Jouer'}
-                </Link>
+                {user ? (
+                    <Link
+                        href={"/challenges/" + c.id}
+                        // disabled={expired || full}
+                        className={`shrink-0 self-center btn-primary`}
+                    >
+                        {full ? 'Complet' : expired ? 'Expiré' : joined ? 'Rejouer' : 'Jouer'}
+                    </Link>
+                ) : (
+                    <button
+                       onClick={showAlert}
+                        // disabled={expired || full}
+                        className={`shrink-0 self-center btn-primary`}
+                    >
+                        {full ? 'Complet' : expired ? 'Expiré' : joined ? 'Rejouer' : 'Jouer'}
+                    </button>
+                )}
             </div>
         </div>
     )
