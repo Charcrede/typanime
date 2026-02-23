@@ -282,7 +282,7 @@ export default function ChallengeGamePage({ params: { id } }: { params: { id: st
                 <TypingGame
                     mode="challenge"
                     content={challenge.content}
-                    challenge={{ id: challenge.id, title: challenge.title, max_players: challenge.max_players, participants: challenge.participants }}
+                    challenge={challenge}
                     backHref="/challenges"
                     breadcrumb={<><span className="border-2 border-white text-white p-1">{challenge.title}</span></>}
                 />
