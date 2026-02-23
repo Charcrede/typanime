@@ -311,7 +311,7 @@ export default function TypingGame(props: TypingGameProps) {
             <div className='lg:px-56 mt-16 xs:z-0 xs:px-4'>
 
                 {/* Header */}
-                <div className='lg:text-xl mb-16 font-semibold xs:text-lg flex items-center justify-between'>
+                <div className='lg:text-xl mb-8 font-semibold xs:text-lg flex items-center justify-between'>
                     <div className='flex items-center gap-2 flex-wrap'>
                         {breadcrumb}
                     </div>
@@ -323,7 +323,7 @@ export default function TypingGame(props: TypingGameProps) {
 
                 {/* Zone de jeu */}
 
-                <div hidden={mode === 'challenge' && !isExpired(props.challenge.expires_at)} className='lg:m-8 border-b border-white xs:m-4' key={key}>
+                <div hidden={mode === 'challenge' && isExpired(props.challenge.expires_at)} className='lg:m-8 border-b border-white xs:m-4' key={key}>
                     <div className='relative h-[400px] overflow-hidden'>
                         <img src={`/${content.image}`} alt="" className='z-0 h-full w-full object-cover' />
                         <div className='absolute top-0 bottom-0 left-0 right-0 bg-black/70 z-0' />
