@@ -263,7 +263,7 @@ export default function TypingGame(props: TypingGameProps) {
             const prev = sps[l - 2] as HTMLElement
             if (cont && cur && prev && cur.offsetTop > prev?.offsetTop)
                 if (cur.offsetTop + cur.offsetHeight * 2 > cont.offsetHeight)
-                    cont.scrollTop += cur.offsetHeight + 25
+                    cont.scrollTop += cur.offsetHeight + 15
 
             if (l === textRef.current.length) {
                 const finalWpm = timeRef.current > 0 ? Math.ceil((l * 60) / (timeRef.current * 5)) : speed
