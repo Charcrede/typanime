@@ -3,7 +3,14 @@ import { cookies } from 'next/headers';
 const API = process.env.NEXT_PUBLIC_API;
 
 export async function GET() {
-    const res = await fetch(`${API}challenges`, { cache: 'no-store' });
+    const tokenRaw = cookies().get('auth_token')?.value;
+    const token = tokenRaw ? JSON.parse(tokenRaw).access_token : null;
+
+    const res = await fetch(`${API}challenges`, {
+        cache: 'no-store',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+
     const data = await res.json();
     return Response.json(data);
 }

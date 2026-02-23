@@ -76,30 +76,6 @@ function ChallengesContent() {
 
     return (
         <div className="min-h-screen text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
-                .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; transition: all 0.2s; }
-                .card:hover { background: rgba(255,255,255,0.055); border-color: rgba(255,255,255,0.13); }
-                .chip { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
-                .btn-primary { background: white; color: black; font-weight: 600; padding: 8px 20px; border-radius: 999px; font-size: 0.85rem; transition: all 0.2s; border: 2px solid white; cursor: pointer; }
-                .btn-primary:hover { background: transparent; color: white; }
-                .btn-ghost { background: transparent; color: rgba(255,255,255,0.5); font-weight: 500; padding: 8px 20px; border-radius: 999px; font-size: 0.85rem; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; }
-                .btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: white; }
-                .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 50; display: flex; align-items: center; justify-content: center; }
-                .modal { background: #141418; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; width: 100%; max-width: 480px; }
-                .input { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 14px; color: white; font-size: 0.9rem; width: 100%; outline: none; transition: border-color 0.2s; font-family: 'DM Sans', sans-serif; }
-                .input:focus { border-color: rgba(255,255,255,0.3); }
-                .input::placeholder { color: rgba(255,255,255,0.25); }
-                .bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
-                .bar-fill { height: 100%; border-radius: 999px; background: white; transition: width 0.5s ease; }
-                select.input option { background: #141418; }
-                .search-wrap { position: relative; flex: 1; max-width: 320px; }
-                .search-wrap input { padding-left: 36px; }
-                .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.3; pointer-events: none; }
-                .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 1rem; line-height: 1; padding: 2px 4px; transition: color 0.2s; }
-                .search-clear:hover { color: white; }
-                .no-match-banner { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); text-align: center; padding: 8px 0 0; }
-            `}</style>
 
             <main className="max-w-5xl mx-auto px-6 py-14">
 

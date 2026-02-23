@@ -1,5 +1,6 @@
 import { Challenge } from "@/app/types/challenge"
 import { Trophy, Link2, Check } from "lucide-react"
+import Link from "next/link"
 import { useState } from "react"
 
 function ChallengeCard({ challenge: c, currentUserId, onJoin }: {
@@ -81,13 +82,13 @@ function ChallengeCard({ challenge: c, currentUserId, onJoin }: {
                     </div>
                 </div>
 
-                <button
-                    onClick={onJoin}
-                    disabled={expired || full}
-                    className={`shrink-0 self-center ${expired || full ? 'btn-ghost opacity-40 cursor-not-allowed' : 'btn-primary'}`}
+                <Link
+                    href={"/challenges/" + c.id}
+                    // disabled={expired || full}
+                    className={`shrink-0 self-center btn-primary`}
                 >
                     {full ? 'Complet' : expired ? 'Expiré' : joined ? 'Rejouer' : 'Jouer'}
-                </button>
+                </Link>
             </div>
         </div>
     )
