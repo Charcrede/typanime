@@ -22,12 +22,14 @@ const config: Config = {
       },
       colors : {
         // primary : '#0b232d',
-        primary : '#1f3f71',
+        primary : '#1a1a2e',
         secondary : '#a8aae7',
-        tertiary : '#377dbf'
+        tertiary : '#377dbf',
+        success : '#197d6e'
       },
       screens : {
         xs : '50px',
+        md : '700px',
         lg: '1024px'
       },
       animation : {

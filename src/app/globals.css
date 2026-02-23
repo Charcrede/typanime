@@ -6,6 +6,7 @@
 @import url(../../public/assets/bebas_neue/font-face.css);
 @import url(../../public/assets/spaceGrotesk/css/space-grotesk.css);
 @import url(../../public/assets/New_Rocker/style.css);
+@import url(../../public/assets/droid-sans-mono/style.css);
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Zen+Kaku+Gothic+New:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
 
 body {
@@ -14,9 +15,10 @@ body {
     background: linear-gradient(to bottom right, #0b111f, #0c0c0f);
 }
 
-span.retry.bg-green-500 {
-    background: #fc9700;
-}
+span.retry.bg-success {
+    color: #af6727;
+    background : #ffdd60
+}x
 
 #container::-webkit-scrollbar {
     display: none;
@@ -410,4 +412,15 @@ span.retry.bg-green-500 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.accuracy-warn {
+    color: #f87171;
+}
+
+.lettre {
+    font-family: 'Droid';
+}
+::-webkit-scrollbar {
+    display: none;
 }
